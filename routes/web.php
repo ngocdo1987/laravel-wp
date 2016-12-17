@@ -51,3 +51,7 @@ Route::group(['prefix' => 'admin'], function() {
         'uses' => 'Admin\PageController@add'
     ]);
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

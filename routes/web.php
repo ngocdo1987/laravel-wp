@@ -15,7 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin'], function() {
+Auth::routes();
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 	Route::get('dashboard', [
         'as' => 'admin.dashboard',
         'uses' => 'Admin\DashboardController@index'
@@ -51,7 +55,5 @@ Route::group(['prefix' => 'admin'], function() {
         'uses' => 'Admin\PageController@add'
     ]);
 });
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index');

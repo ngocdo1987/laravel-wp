@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{ $mt }} | Admin Area</title>
+    <title>{{ $mt }} | Laravel admin</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('/admin/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">

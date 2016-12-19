@@ -54,6 +54,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
         'as' => 'admin.page.add',
         'uses' => 'Admin\PageController@add'
     ]);
+
+    Route::get('test', [
+        'as' => 'admin.test',
+        'uses' => 'Admin\TestController@index'
+    ]); 
 });
 
 Route::get('/home', 'HomeController@index');

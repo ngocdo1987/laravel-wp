@@ -24,6 +24,27 @@
 			CKEDITOR.replace( 'ckeditor' );
 		});
 	</script>
+
+	<!-- Datetime picker -->
+	<link href="{{ asset('/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css') }}" rel="stylesheet">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+	<script src="{{ asset('/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js') }}"></script>
+	<script type="text/javascript">
+		
+		$(function () {
+        	$('.datetimepicker').datetimepicker();
+        });
+	</script>
+
+	<!-- Helper -->
+	<script src="{{ asset('/js/helper.js') }}"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".image_upload").change(function () {
+    			readURL(this);
+    		});
+       	});
+	</script>
 </body>
 
 </html>

@@ -59,6 +59,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
         'as' => 'admin.test',
         'uses' => 'Admin\TestController@index'
     ]); 
+
+    Route::get('test/list_cols', [
+        'as' => 'admin.test.list_cols',
+        'uses' => 'Admin\TestController@list_cols'
+    ]);
 });
 
 Route::get('/home', 'HomeController@index');

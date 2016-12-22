@@ -37,6 +37,7 @@
 	</script>
 
 	<!-- Helper -->
+	<link href="{{ asset('/css/helper.css') }}" rel="stylesheet" />
 	<script src="{{ asset('/js/helper.js') }}"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){

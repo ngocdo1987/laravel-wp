@@ -44,6 +44,12 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
+                        @if(Session::has('message'))
+                            <div class="alert alert-info">
+                                {{ Session::get('message') }}
+                            </div>
+                        @endif
+
                         <h1 class="page-header">{{ $mt }}</h1>
 
                         @yield('content')

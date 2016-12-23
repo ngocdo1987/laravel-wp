@@ -25,35 +25,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
         'uses' => 'Admin\DashboardController@index'
     ]);
 
-    Route::get('post', [
-        'as' => 'admin.dashboard',
-        'uses' => 'Admin\PostController@index'
-    ]);
-
-    Route::get('post/add', [
-        'as' => 'admin.dashboard.add',
-        'uses' => 'Admin\PostController@add'
-    ]);
-
-    Route::get('category', [
-        'as' => 'admin.category',
-        'uses' => 'Admin\CategoryController@index'
-    ]);
-
-    Route::get('tag', [
-        'as' => 'admin.tag',
-        'uses' => 'Admin\TagController@index'
-    ]);
-
-    Route::get('page', [
-        'as' => 'admin.page',
-        'uses' => 'Admin\PageController@index'
-    ]);
-
-    Route::get('page/add', [
-        'as' => 'admin.page.add',
-        'uses' => 'Admin\PageController@add'
-    ]);
+    Route::resource('post', 'Admin\PostController');
+    Route::resource('category', 'Admin\CategoryController');
+    Route::resource('tag', 'Admin\TagController');
+    Route::resource('page', 'Admin\PageController');
 
     Route::get('test', [
         'as' => 'admin.test',

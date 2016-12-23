@@ -23,7 +23,7 @@
                         <a href="{{ url('admin/post') }}">All Posts</a>
                     </li>
                     <li>
-                        <a href="{{ url('admin/post/add') }}">Add New</a>
+                        <a href="{{ url('admin/post/create') }}">Add New</a>
                     </li>
                     <li>
                         <a href="{{ url('admin/category') }}">Categories</a>
@@ -41,7 +41,7 @@
                         <a href="{{ url('admin/page') }}">All Pages</a>
                     </li>
                     <li>
-                        <a href="{{ url('admin/page/add') }}">Add New</a>
+                        <a href="{{ url('admin/page/create') }}">Add New</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->

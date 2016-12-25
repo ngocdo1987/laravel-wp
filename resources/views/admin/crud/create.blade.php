@@ -25,7 +25,7 @@
 											break;
 										case 'textarea':
 											?>
-											<textarea class="form-control" name="{{ $col->Field }}">{{ Request::old($col->Field) }}</textarea>
+											<textarea class="form-control" name="{{ $col->Field }}" rows="6">{{ Request::old($col->Field) }}</textarea>
 											<?php
 											break;	
 										case 'ckeditor':
@@ -39,8 +39,8 @@
 										case 'select':
 											?>
 											<select class="form-control select2" name="{{ $col->Field }}">
-												<option value="">option 1</option>
-												<option value="">option 2</option>
+												<option value="1">Published</option>
+												<option value="0">Draft</option>
 											</select>
 											<?php
 											break;

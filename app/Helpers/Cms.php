@@ -17,7 +17,7 @@ class Cms
 				?>
 				<div class="form-group row">
 					<div class="col-lg-2">
-						<?=?>
+						
 					</div>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" name="page_title" value="{{ Request::old('page_title') }}" />

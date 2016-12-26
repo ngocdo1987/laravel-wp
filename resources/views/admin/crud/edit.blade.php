@@ -3,8 +3,7 @@
 @section('content')
 	<div class="row">
 		<div class="col-lg-12">
-			<form method="POST" action="{{ url('admin/'.$singular) }}" accept-charset="UTF-8">
-				{!! csrf_field() !!}
+			{{ Form::model($crud, ['method' => 'PATCH', 'route' => [$singular.'.update', $crud->id]]) }}
 
 				@foreach($config->cols as $k => $v)
 					<div class="form-group row">
@@ -105,7 +104,7 @@
 					<input type="submit" class="btn btn-primary" value="SAVE" /> 
 					<a href="{{ url('admin/'.$singular) }}" class="btn btn-primary">BACK</a>
 				</div>
-			</form>
+			{{ Form::close() }}
 		</div>
 	</div>	
 @stop

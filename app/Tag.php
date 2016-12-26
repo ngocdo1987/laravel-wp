@@ -19,7 +19,7 @@ class Tag extends Model
 
 		if(in_array($request->method(), ['PUT', 'PATCH']))
 		{
-			$rules['tag_slug'] = $rules['tag_slug'].','.$request->get('id');
+			$rules['tag_slug'] = $rules['tag_slug'].','.$request->segment(3);
 		}
 
 		return $rules;

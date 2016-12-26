@@ -21,8 +21,8 @@
 	                @endforeach
 	                
 	                <td class="center">
-	                	<a href="{{ url('/admin/'.$singular.'/'.$crud->id.'/edit') }}">Edit</a> / 
-	                	<a href="javascript:void(0)">Delete</a>
+	                	<a href="{{ url('/admin/'.$singular.'/'.$crud->id.'/edit') }}" class="btn btn-primary btn-xs">Edit</a>  
+	                	<a href="javascript:void(0)" class="btn btn-danger btn-xs">Delete</a>
 	                </td>
 	            </tr>
 	            @endforeach

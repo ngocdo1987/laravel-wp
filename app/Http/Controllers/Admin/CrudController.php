@@ -105,7 +105,7 @@ class CrudController extends Controller
 
 		$model = '\App\\'.ucfirst($this->singular);
 		$model = new $model;
-
+		
 		$validation = validator()->make($input, $model->rules($request));
 
 		if($validation->passes())

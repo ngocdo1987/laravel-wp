@@ -45,7 +45,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         @if(Session::has('message'))
-                            <div class="alert alert-info">
+                            <div class="alert alert-info alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> 
                                 {{ Session::get('message') }}
                             </div>
                         @endif

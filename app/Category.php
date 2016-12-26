@@ -19,7 +19,7 @@ class Category extends Model
 
 		if(in_array($request->method(), ['PUT', 'PATCH']))
 		{
-			$rules['category_slug'] = $rules['category_slug'].','.$request->get('id');
+			$rules['category_slug'] = $rules['category_slug'].','.$request->segment(3);
 		}
 
 		return $rules;

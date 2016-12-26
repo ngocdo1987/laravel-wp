@@ -19,7 +19,7 @@ class Page extends Model
 
 		if(in_array($request->method(), ['PUT', 'PATCH']))
 		{
-			$rules['page_slug'] = $rules['page_slug'].','.$request->get('id');
+			$rules['page_slug'] = $rules['page_slug'].','.$request->segment(3);
 		}
 
 		return $rules;

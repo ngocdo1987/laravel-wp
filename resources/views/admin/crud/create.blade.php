@@ -4,9 +4,8 @@
 	<div class="row">
 		<div class="col-lg-12">
 			@if(!empty($config))
-				<form method="POST" action="{{ url('admin/'.$singular) }}" accept-charset="UTF-8">
-					{!! csrf_field() !!}
-
+				{{ Form::open(['route' => $singular.'.store']) }}
+					
 					@foreach($config->cols as $k => $v)
 						<div class="form-group row">
 							<div class="col-lg-2">
@@ -106,7 +105,7 @@
 						<input type="submit" class="btn btn-primary" value="SAVE" /> 
 						<a href="{{ url('admin/'.$singular) }}" class="btn btn-primary">BACK</a>
 					</div>
-				</form>
+				{{ Form::close() }}
 			@else
 				<center>
 		    		<font color="red">

@@ -3,34 +3,32 @@
 @section('content')
 	<div class="row">
 		<div class="col-lg-12">
-			<form method="POST" action="{{ url('admin/'.$singular) }}" accept-charset="UTF-8">
-				{!! csrf_field() !!}
+			@if(!empty($config))
+				<form method="POST" action="{{ url('admin/'.$singular) }}" accept-charset="UTF-8">
+					{!! csrf_field() !!}
 
-				@foreach($cols as $col)
-					@if($col->Comment != '')
-						<?php $comment = explode("|", $col->Comment); ?>
-
+					@foreach($config->cols as $k => $v)
 						<div class="form-group row">
 							<div class="col-lg-2">
-								{{ $comment[0] }}
+								{{ $v->label }}
 							</div>
 							<div class="col-lg-10">
 								<?php
-									switch($comment[1])
+									switch($v->type)
 									{
 										case 'text':
 											?>
-											<input type="text" class="form-control" name="{{ $col->Field }}" value="{{ Request::old($col->Field) }}" />
+											<input type="text" class="form-control" name="{{ $k }}" value="{{ Request::old($k) }}" />
 											<?php
 											break;
 										case 'textarea':
 											?>
-											<textarea class="form-control" name="{{ $col->Field }}" rows="6">{{ Request::old($col->Field) }}</textarea>
+											<textarea class="form-control" name="{{ $k }}" rows="6">{{ Request::old($k) }}</textarea>
 											<?php
 											break;	
 										case 'ckeditor':
 											?>
-											<textarea class="form-control" name="{{ $col->Field }}" id="ckeditor">{{ Request::old($col->Field) }}</textarea>
+											<textarea class="form-control" name="{{ $k }}" id="ckeditor">{{ Request::old($k) }}</textarea>
 											<?php
 											break;
 										case 'tinymce':
@@ -38,15 +36,19 @@
 											break;
 										case 'select':
 											?>
-											<select class="form-control select2" name="{{ $col->Field }}">
-												<option value="1">Published</option>
-												<option value="0">Draft</option>
+											<select class="form-control select2" name="{{ $k }}">
+												@foreach($v->value as $k1 => $v1)
+													@php
+														$selected = (Request::old($k) == $k1) ? ' selected="selected"' : ''
+													@endphp
+												<option value="{{ $k1 }}"{{ $selected }}>{{ $v1 }}</option>
+												@endforeach
 											</select>
 											<?php
 											break;
 										case 'select_multiple':
 											?>
-											<select name="form-control select2" name="{{ $col->Field }}" multiple="multiple">
+											<select name="form-control select2" name="{{ $k }}" multiple="multiple">
 												<option>option 1</option>
 												<option>option 2</option>
 												<option>option 3</option>
@@ -55,22 +57,22 @@
 											break;
 										case 'radio':
 											?>
-											<input type="radio" class="form-control" name="{{ $col->Field }}" />
+											<input type="radio" class="form-control" name="{{ $k }}" />
 											<?php
 											break;
 										case 'checkbox':
 											?>
-											<input type="checkbox" class="form-control" name="{{ $col->Field }}" />
+											<input type="checkbox" class="form-control" name="{{ $k }}" />
 											<?php
 											break;
 										case 'file':
 											?>
-											<input type="file" class="form-control" name="{{ $col->Field }}" />
+											<input type="file" class="form-control" name="{{ $k }}" />
 											<?php
 											break;
 										case 'image':
 											?>
-											<input type="file" class="form-control image_upload" name="{{ $col->Field }}" />
+											<input type="file" class="form-control image_upload" name="{{ $k }}" />
 											<br/>
 											<img class="image_upload_preview" src="http://placehold.it/100x100" alt="your image" width="150" />
 											<?php
@@ -84,7 +86,7 @@
 										case 'true_false':
 											?>
 											<label class="switch">
-											 	<input type="checkbox" name="{{ $col->Field }}" checked>
+											 	<input type="checkbox" name="{{ $k }}" checked>
 											 	<div class="slider round"></div>
 											</label>
 											<?php
@@ -92,19 +94,26 @@
 									}
 								?>
 
-								@if($errors->has($col->Field))
-				                    <font color="red">{{ $errors->first($col->Field) }}</font>
+								@if($errors->has($k))
+				                    <font color="red">{{ $errors->first($k) }}</font>
 				            	@endif
 							</div>
 						</div>
-					@endif
-				@endforeach
+						
+					@endforeach
 
-				<div class="form-group row">
-					<input type="submit" class="btn btn-primary" value="SAVE" /> 
-					<a href="{{ url('admin/'.$singular) }}" class="btn btn-primary">BACK</a>
-				</div>
-			</form>
+					<div class="form-group row">
+						<input type="submit" class="btn btn-primary" value="SAVE" /> 
+						<a href="{{ url('admin/'.$singular) }}" class="btn btn-primary">BACK</a>
+					</div>
+				</form>
+			@else
+				<center>
+		    		<font color="red">
+		    			Please create config file!
+		    		</font>
+		    	</center>
+			@endif
 		</div>
 	</div>	
 @stop

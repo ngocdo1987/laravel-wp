@@ -3,16 +3,27 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Category extends Model
 {
 	protected $guarded = ['id'];
 	protected $fillable = ['category_name', 'category_slug', 'category_description', 'parent_id', 'category_mt', 'category_md', 'category_mk'];
 
-	public static $rules = [
-		'category_name' => 'required|min:3',
-		'category_slug' => 'required|min:3'
-	];
+	public function rules(Request $request)
+	{
+		$rules = [
+			'category_name' => 'required|min:3',
+			'category_slug' => 'required|min:3|unique:categories,category_slug'
+		];
+
+		if(in_array($request->method(), ['PUT', 'PATCH']))
+		{
+			$rules['category_slug'] = $rules['category_slug'].','.$request->get('id');
+		}
+
+		return $rules;
+	}
 
 	public static $filters = [
 

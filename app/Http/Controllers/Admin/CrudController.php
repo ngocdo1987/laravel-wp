@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use DB;
+//use DB;
 
 class CrudController extends Controller
 {
@@ -33,6 +33,7 @@ class CrudController extends Controller
 		$mt = 'List '.$this->plural;
 		$model = '\App\\'.ucfirst($this->singular);
 		$model = new $model;
+		//die($model::rules_lol($request));
 		$cruds = $model->paginate(20);
 		$config = $this->config;
 		$singular = $this->singular;
@@ -43,10 +44,9 @@ class CrudController extends Controller
 	public function create(Request $request)
 	{
 		$mt = 'Add '.$this->singular;
-		$cols = DB::select("SHOW FULL COLUMNS FROM `".$this->plural."`");
 		$config = $this->config;
 		$singular = $this->singular;
-		return view('admin.crud.create', compact('mt', 'cols', 'config', 'singular'));
+		return view('admin.crud.create', compact('mt', 'config', 'singular'));
 	}
 
 	public function store(Request $request)
@@ -56,7 +56,7 @@ class CrudController extends Controller
 		$model = '\App\\'.ucfirst($this->singular);
 		$model = new $model;
 
-		$validation = validator()->make($input, $model::$rules);
+		$validation = validator()->make($input, $model->rules($request));
 
 		if($validation->passes())
 		{
@@ -79,8 +79,10 @@ class CrudController extends Controller
 		$model = new $model;
 
 		$crud = $model->find($id);
+		$config = $this->config;
+		$singular = $this->singular;
 
-		return view('admin.crud.show', compact('mt', 'crud'));
+		return view('admin.crud.show', compact('mt', 'crud', 'config', 'singular'));
 	}
 
 	public function edit(Request $request, $id = null)
@@ -90,8 +92,10 @@ class CrudController extends Controller
 		$model = '\App\\'.ucfirst($this->singular);
 		$model = new $model;
 		$crud = $model->find($id);
+		$config = $this->config;
+		$singular = $this->singular;
 
-		return view('admin.crud.edit', compact('mt', 'crud'));
+		return view('admin.crud.edit', compact('mt', 'crud', 'config', 'singular'));
 	}
 
 	public function update(Request $request, $id = null)
@@ -102,7 +106,7 @@ class CrudController extends Controller
 		$model = '\App\\'.ucfirst($this->singular);
 		$model = new $model;
 
-		$validation = validator()->make($input, $model::$rules);
+		$validation = validator()->make($input, $model->rules($request));
 
 		if($validation->passes())
 		{

@@ -22,7 +22,7 @@
 	                
 	                <td class="center">
 	                	<a href="{{ url('/admin/'.$singular.'/'.$crud->id.'/edit') }}">Edit</a> / 
-	                	Delete
+	                	<a href="javascript:void(0)">Delete</a>
 	                </td>
 	            </tr>
 	            @endforeach
@@ -31,7 +31,7 @@
     @else
     	<center>
     		<font color="red">
-    			No {{ $plural }} existed! Or config file not founded!
+    			No {{ $plural }} existed or config file not found!
     		</font>
     	</center>
     @endif

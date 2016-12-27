@@ -179,6 +179,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
+
+        Nwidart\Modules\LaravelModulesServiceProvider::class,
     ],
 
     /*
@@ -229,6 +231,8 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+
+        'Module' => Nwidart\Modules\Facades\Module::class,
 
     ],
 

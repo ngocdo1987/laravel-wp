@@ -21,8 +21,13 @@
 	                @endforeach
 	                
 	                <td class="center">
-	                	<a href="{{ url('/admin/'.$singular.'/'.$crud->id.'/edit') }}" class="btn btn-primary btn-xs">Edit</a>  
-	                	<a href="javascript:void(0)" class="btn btn-danger btn-xs">Delete</a>
+	                	<form method="POST" action="{{ url('admin/'.$singular.'/'.$crud->id) }}" accept-charset="UTF-8">
+	                		{!! csrf_field() !!} 
+	                		<input name="_method" type="hidden" value="DELETE">
+	                		<a href="{{ url('/admin/'.$singular.'/'.$crud->id.'/edit') }}" class="btn btn-primary btn-xs">Edit</a> 
+
+	                		<input class="btn btn-danger btn-xs delete_confirm" type="button" value="Delete">
+	                	</form>
 	                </td>
 	            </tr>
 	            @endforeach

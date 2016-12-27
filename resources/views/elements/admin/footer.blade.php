@@ -44,6 +44,13 @@
 			$(".image_upload").change(function () {
     			readURL(this);
     		});
+
+    		$(".delete_confirm").click(function(){
+    			var delete_confirm = confirm('Do you want to delete this item?');
+    			if(delete_confirm == true) {
+    				$(this).parent().submit();
+    			}
+    		});
        	});
 	</script>
 </body>

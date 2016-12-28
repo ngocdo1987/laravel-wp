@@ -51,7 +51,7 @@
                             </div>
                         @endif
 
-                        <h1 class="page-header">{{ $mt }}</h1>
+                        <h1 class="page-header">{{ $mt or "" }}</h1>
 
                         @yield('content')
                     </div>

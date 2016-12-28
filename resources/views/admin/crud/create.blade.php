@@ -2,16 +2,16 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-9">
 			@if(!empty($config))
-				{{ Form::open(['route' => $singular.'.store']) }}
+				{{ Form::open(['route' => $singular.'.store', 'files' => 'true']) }}
 					
 					@foreach($config->cols as $k => $v)
 						<div class="form-group row">
-							<div class="col-lg-2">
-								{{ $v->label }}
-							</div>
-							<div class="col-lg-10">
+							
+							<div class="col-lg-12">
+								{{ $v->label }}<br/>
+
 								<?php
 									switch($v->type)
 									{
@@ -94,7 +94,7 @@
 								?>
 
 								@if($errors->has($k))
-				                    <font color="red">{{ $errors->first($k) }}</font>
+				                    <font color="red"><i>{{ $errors->first($k) }}</i></font>
 				            	@endif
 							</div>
 						</div>
@@ -102,8 +102,10 @@
 					@endforeach
 
 					<div class="form-group row">
-						<input type="submit" class="btn btn-primary" value="SAVE" /> 
-						<a href="{{ url('admin/'.$singular) }}" class="btn btn-primary">BACK</a>
+						<div class="col-lg-12">
+							<input type="submit" class="btn btn-primary" value="SAVE" /> 
+							<a href="{{ url('admin/'.$singular) }}" class="btn btn-primary">BACK</a>
+						</div>
 					</div>
 				{{ Form::close() }}
 			@else
@@ -113,6 +115,9 @@
 		    		</font>
 		    	</center>
 			@endif
+		</div>
+		<div class="col-lg-3">
+
 		</div>
 	</div>	
 @stop

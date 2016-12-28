@@ -2,15 +2,15 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-lg-12">
-			{{ Form::model($crud, ['method' => 'PATCH', 'route' => [$singular.'.update', $crud->id]]) }}
+		<div class="col-lg-9">
+			{{ Form::model($crud, ['method' => 'PATCH', 'route' => [$singular.'.update', $crud->id], 'files' => 'true']) }}
 
 				@foreach($config->cols as $k => $v)
 					<div class="form-group row">
-						<div class="col-lg-2">
+						
+						<div class="col-lg-12">
 							{{ $v->label }}
-						</div>
-						<div class="col-lg-10">
+							<br/>
 							<?php
 								switch($v->type)
 								{
@@ -93,7 +93,7 @@
 							?>
 
 							@if($errors->has($k))
-			                    <font color="red">{{ $errors->first($k) }}</font>
+			                    <font color="red"><i>{{ $errors->first($k) }}</i></font>
 			            	@endif
 						</div>
 					</div>
@@ -101,10 +101,15 @@
 				@endforeach
 
 				<div class="form-group row">
-					<input type="submit" class="btn btn-primary" value="SAVE" /> 
-					<a href="{{ url('admin/'.$singular) }}" class="btn btn-primary">BACK</a>
+					<div class="col-lg-12">
+						<input type="submit" class="btn btn-primary" value="SAVE" /> 
+						<a href="{{ url('admin/'.$singular) }}" class="btn btn-primary">BACK</a>
+					</div>	
 				</div>
 			{{ Form::close() }}
+		</div>
+		<div class="col-lg-3">
+
 		</div>
 	</div>	
 @stop

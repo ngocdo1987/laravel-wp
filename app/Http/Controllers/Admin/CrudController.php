@@ -34,7 +34,7 @@ class CrudController extends Controller
 		$model = '\App\\'.ucfirst($this->singular);
 		$model = new $model;
 		//die($model::rules_lol($request));
-		$cruds = $model->paginate(20);
+		$cruds = $model->orderBy('id', 'desc')->paginate(20);
 		$config = $this->config;
 		$singular = $this->singular;
 		$plural = $this->plural;

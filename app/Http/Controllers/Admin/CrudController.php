@@ -46,7 +46,24 @@ class CrudController extends Controller
 		$mt = 'Add '.$this->singular;
 		$config = $this->config;
 		$singular = $this->singular;
-		return view('admin.crud.create', compact('mt', 'config', 'singular'));
+
+		$compact = ['mt', 'config', 'singular'];
+
+		// Check recursive
+		if(isset($config->recursive) && $config->recursive == 1)
+		{
+			$model = '\App\\'.ucfirst($this->singular);
+			$model = new $model;
+
+			$recursives = $model::recursive();
+			$compact[] = 'recursives';
+		}
+
+		// Check 1-n
+
+		// Check n-n
+
+		return view('admin.crud.create', compact($compact));
 	}
 
 	public function store(Request $request)

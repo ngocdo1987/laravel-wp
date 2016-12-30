@@ -45,9 +45,19 @@
 											</select>
 											<?php
 											break;
+										case 'select_recursive':
+											?>
+											<select class="form-control select2" name="{{ $k }}">
+												<option value="0">-- Choose --</option>
+												@foreach($recursives as $recursive)
+												<option value="{{ $recursive['id'] }}">{{ $recursive['name'] }}</option>
+												@endforeach
+											</select>
+											<?php
+											break;	
 										case 'select_multiple':
 											?>
-											<select name="form-control select2" name="{{ $k }}" multiple="multiple">
+											<select class="form-control select2" name="{{ $k }}" multiple="multiple">
 												<option>option 1</option>
 												<option>option 2</option>
 												<option>option 3</option>

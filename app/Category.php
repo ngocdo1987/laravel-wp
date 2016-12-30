@@ -29,6 +29,7 @@ class Category extends Model
 		return $rules;
 	}
 
+	/*
 	public static function recursive($parent_id = 0, $level = 0)
 	{
 		$tree = '';
@@ -54,6 +55,35 @@ class Category extends Model
 		}
 
 	    return $categories;
+	}
+	*/
+
+	public static function recursive($parent_id = 0, $prefix = '', $tree = [])
+	{
+		if($parent_id == 0) 
+		{
+			$tree = [];
+		}
+
+		$childs = Category::where('parent_id', $parent_id)->get();
+		
+		if(count($childs) > 0)
+		{
+			foreach($childs as $child)
+			{
+				//$tree .= '<option value="'.$child->id.'">'.$child->category_name.'</option>';
+				$tree[] = [
+					'id' => $child->id,
+					'name' => $prefix.$child->category_name
+				];
+
+				//$prefix .= '---';
+
+				Category::recursive($child->id, $prefix, $tree);
+			}
+		}
+
+		return $tree;
 	}
 
 	public function posts()

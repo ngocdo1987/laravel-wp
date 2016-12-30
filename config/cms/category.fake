@@ -1,6 +1,7 @@
 <?php
 // http://php.fnlist.com/php/json_encode
 return [
+	'recursive' => 1,
 	'cols' => [
 		'category_name' => [
 			'label' => 'Name',
@@ -19,11 +20,8 @@ return [
 		],
 		'parent_id' => [
 			'label' => 'Parent',
-			'type' => 'select',
-			'value' => [
-				'1' => 'Published',
-				'0' => 'Draft'
-			]
+			'type' => 'select_recursive',
+			'parent_column' => 'parent_id'
 		],
 		'category_mt' => [
 			'label' => 'Meta title',

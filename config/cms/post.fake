@@ -59,6 +59,7 @@ return [
 	'relation' => [
 		'nn' => [
 			'category' => [
+				'func' => 'categories',
 				'bridge_table' => 'categories_posts',
 				'home_id' => 'post_id',
 				'away_id' => 'category_id',
@@ -66,6 +67,7 @@ return [
 				'target_label' => 'category_name'
 			],
 			'tag' => [
+				'func' => 'tags',
 				'bridge_table' => 'posts_tags',
 				'home_id' => 'post_id',
 				'away_id' => 'tag_id',

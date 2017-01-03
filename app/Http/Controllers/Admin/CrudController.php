@@ -64,13 +64,13 @@ class CrudController extends Controller
 		// Check n-n
 		if(isset($config->relation->nn) && count($config->relation->nn) > 0)
 		{
-			foreach($config->relation->nn as $k => $v)
+			foreach($config->relation->nn as $singular_model => $v)
 			{
-				$model = '\App\\'.ucfirst($k);
+				$model = '\App\\'.ucfirst($singular_model);
 				$model = new $model;
 
-				$$k = $model->all();
-				$compact[] = $k;
+				$$singular_model = $model->all();
+				$compact[] = $singular_model;
 				//echo '<pre>'; print_r($$k); echo '</pre>'; die('');
 			}	
 		}
@@ -143,14 +143,27 @@ class CrudController extends Controller
 		// Check n-n
 		if(isset($config->relation->nn) && count($config->relation->nn) > 0)
 		{
-			foreach($config->relation->nn as $k => $v)
+			foreach($config->relation->nn as $singular_model => $v)
 			{
-				$model = '\App\\'.ucfirst($k);
+				$model = '\App\\'.ucfirst($singular_model);
 				$model = new $model;
 
-				$$k = $model->all();
-				$compact[] = $k;
-				//echo '<pre>'; print_r($$k); echo '</pre>'; die('');
+				// Get all values of model table
+				$$singular_model = $model->all();
+				$compact[] = $singular_model;
+
+				// Get model related ids
+				$func_name = $v->func;
+				$singular_model_related_ids = $singular_model.'_related_ids';
+				$$singular_model_related_ids = [];
+				$obj_related_ids = $crud->$func_name()->getRelatedIds();
+				foreach($obj_related_ids as $ori)
+				{
+					$$singular_model_related_ids[] = $ori;
+				}
+				$compact[] = $singular_model_related_ids;
+
+				//echo '<pre>'; print_r($$singular_model_related_ids); echo '</pre>'; die('');
 			}	
 		}
 

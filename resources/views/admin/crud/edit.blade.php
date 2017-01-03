@@ -123,13 +123,15 @@
 		</div>
 		<div class="col-lg-3">
 			@if(isset($config->relation->nn) && count($config->relation->nn) > 0)
-				@foreach($config->relation->nn as $k => $v)
-					<h3>{{ ucfirst($k) }}</h3>
-					@foreach($$k as $kk)
+				@foreach($config->relation->nn as $singular_model => $v)
+					<h3>{{ ucfirst($singular_model) }}</h3>
+					@foreach($$singular_model as $sm)
 						@php
 							$target_label = $v->target_label;
+							$singular_model_related_ids = $singular_model.'_related_ids';
+							$checked = in_array($sm->id, $$singular_model_related_ids) ? ' checked="checked"' : '';
 						@endphp
-						<input type="checkbox" name="{{ $k }}[]" value="{{ $kk->id }}" /> {{ $kk->$target_label }} <br/>
+						<input type="checkbox" name="{{ $singular_model }}[]" value="{{ $sm->id }}"{{ $checked }} /> {{ $sm->$target_label }} <br/>
 					@endforeach
 					<hr/>
 				@endforeach

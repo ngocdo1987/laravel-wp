@@ -62,6 +62,18 @@ class CrudController extends Controller
 		// Check 1-n
 
 		// Check n-n
+		if(isset($config->relation->nn) && count($config->relation->nn) > 0)
+		{
+			foreach($config->relation->nn as $k => $v)
+			{
+				$model = '\App\\'.ucfirst($k);
+				$model = new $model;
+
+				$$k = $model->all();
+				$compact[] = $k;
+				//echo '<pre>'; print_r($$k); echo '</pre>'; die('');
+			}	
+		}
 
 		return view('admin.crud.create', compact($compact));
 	}
@@ -69,6 +81,8 @@ class CrudController extends Controller
 	public function store(Request $request)
 	{
 		$input = $request->all();
+
+		//echo '<pre>'; print_r($input); echo '</pre>'; die('');
 
 		$model = '\App\\'.ucfirst($this->singular);
 		$model = new $model;
@@ -112,7 +126,35 @@ class CrudController extends Controller
 		$config = $this->config;
 		$singular = $this->singular;
 
-		return view('admin.crud.edit', compact('mt', 'crud', 'config', 'singular'));
+		$compact = ['mt', 'crud', 'config', 'singular'];
+
+		// Check recursive
+		if(isset($config->recursive) && $config->recursive == 1)
+		{
+			$model = '\App\\'.ucfirst($this->singular);
+			$model = new $model;
+
+			$recursives = $model::recursive();
+			$compact[] = 'recursives';
+		}
+
+		// Check 1-n
+
+		// Check n-n
+		if(isset($config->relation->nn) && count($config->relation->nn) > 0)
+		{
+			foreach($config->relation->nn as $k => $v)
+			{
+				$model = '\App\\'.ucfirst($k);
+				$model = new $model;
+
+				$$k = $model->all();
+				$compact[] = $k;
+				//echo '<pre>'; print_r($$k); echo '</pre>'; die('');
+			}	
+		}
+
+		return view('admin.crud.edit', compact($compact));
 	}
 
 	public function update(Request $request, $id = null)

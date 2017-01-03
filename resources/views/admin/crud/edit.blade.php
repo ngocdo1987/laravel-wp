@@ -2,10 +2,10 @@
 
 @section('content')
 	<div class="row">
+		{{ Form::model($crud, ['method' => 'PATCH', 'route' => [$singular.'.update', $crud->id], 'files' => 'true']) }}
 		<div class="col-lg-9">
-			{{ Form::model($crud, ['method' => 'PATCH', 'route' => [$singular.'.update', $crud->id], 'files' => 'true']) }}
-
-				@foreach($config->cols as $k => $v)
+			@foreach($config->cols as $k => $v)
+				@if($config->display->edit == '*' || in_array($k, $config->display->edit))
 					<div class="form-group row">
 						
 						<div class="col-lg-12">
@@ -44,6 +44,19 @@
 										</select>
 										<?php
 										break;
+									case 'select_recursive':
+										?>
+										<select class="form-control select2" name="{{ $k }}">
+											<option value="0">-- Choose --</option>
+											@foreach($recursives as $recursive)
+												@php
+													$selected = ($crud->$k == $recursive['id']) ? ' selected="selected"' : ''
+												@endphp
+											<option value="{{ $recursive['id'] }}"{{ $selected }}>{{ $recursive['name'] }}</option>
+											@endforeach
+										</select>
+										<?php
+										break;	
 									case 'select_multiple':
 										?>
 										<select name="form-control select2" name="{{ $k }}" multiple="multiple">
@@ -97,19 +110,31 @@
 			            	@endif
 						</div>
 					</div>
-					
-				@endforeach
+				@endif
+			@endforeach
 
-				<div class="form-group row">
-					<div class="col-lg-12">
-						<input type="submit" class="btn btn-primary" value="SAVE" /> 
-						<a href="{{ url('admin/'.$singular) }}" class="btn btn-primary">BACK</a>
-					</div>	
-				</div>
-			{{ Form::close() }}
+			<div class="form-group row">
+				<div class="col-lg-12">
+					<input type="submit" class="btn btn-primary" value="SAVE" /> 
+					<a href="{{ url('admin/'.$singular) }}" class="btn btn-primary">BACK</a>
+				</div>	
+			</div>
+			
 		</div>
 		<div class="col-lg-3">
-
+			@if(isset($config->relation->nn) && count($config->relation->nn) > 0)
+				@foreach($config->relation->nn as $k => $v)
+					<h3>{{ ucfirst($k) }}</h3>
+					@foreach($$k as $kk)
+						@php
+							$target_label = $v->target_label;
+						@endphp
+						<input type="checkbox" name="{{ $k }}[]" value="{{ $kk->id }}" /> {{ $kk->$target_label }} <br/>
+					@endforeach
+					<hr/>
+				@endforeach
+			@endif
 		</div>
+		{{ Form::close() }}
 	</div>	
 @stop

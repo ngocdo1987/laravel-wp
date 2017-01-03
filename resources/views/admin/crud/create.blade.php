@@ -2,16 +2,16 @@
 
 @section('content')
 	<div class="row">
+		{{ Form::open(['route' => $singular.'.store', 'files' => 'true']) }}
+
 		<div class="col-lg-9">
 			@if(!empty($config))
-				{{ Form::open(['route' => $singular.'.store', 'files' => 'true']) }}
-					
-					@foreach($config->cols as $k => $v)
+				@foreach($config->cols as $k => $v)
+					@if($config->display->create == '*' || in_array($k, $config->display->create))
 						<div class="form-group row">
-							
 							<div class="col-lg-12">
-								{{ $v->label }}<br/>
-
+								{{ $v->label }}
+								<br/>
 								<?php
 									switch($v->type)
 									{
@@ -50,7 +50,10 @@
 											<select class="form-control select2" name="{{ $k }}">
 												<option value="0">-- Choose --</option>
 												@foreach($recursives as $recursive)
-												<option value="{{ $recursive['id'] }}">{{ $recursive['name'] }}</option>
+													@php
+														$selected = (Request::old($k) == $recursive['id']) ? ' selected="selected"' : ''
+													@endphp
+												<option value="{{ $recursive['id'] }}"{{ $selected }}>{{ $recursive['name'] }}</option>
 												@endforeach
 											</select>
 											<?php
@@ -108,16 +111,16 @@
 				            	@endif
 							</div>
 						</div>
-						
-					@endforeach
+					@endif
+				@endforeach
 
-					<div class="form-group row">
-						<div class="col-lg-12">
-							<input type="submit" class="btn btn-primary" value="SAVE" /> 
-							<a href="{{ url('admin/'.$singular) }}" class="btn btn-primary">BACK</a>
-						</div>
+				<div class="form-group row">
+					<div class="col-lg-12">
+						<input type="submit" class="btn btn-primary" value="SAVE" /> 
+						<a href="{{ url('admin/'.$singular) }}" class="btn btn-primary">BACK</a>
 					</div>
-				{{ Form::close() }}
+				</div>
+				
 			@else
 				<center>
 		    		<font color="red">
@@ -127,7 +130,21 @@
 			@endif
 		</div>
 		<div class="col-lg-3">
-
+			@if(isset($config->relation->nn) && count($config->relation->nn) > 0)
+				@foreach($config->relation->nn as $k => $v)
+					<h3>{{ ucfirst($k) }}</h3>
+					@foreach($$k as $kk)
+						@php
+							$target_label = $v->target_label;
+							$checked = (null !== Request::old($k) && in_array($kk->id, Request::old($k))) ? ' checked="checked"' : '';
+						@endphp
+						<input type="checkbox" name="{{ $k }}[]" value="{{ $kk->id }}"{{ $checked }} /> {{ $kk->$target_label }} <br/>
+					@endforeach
+					<hr/>
+				@endforeach
+			@endif
 		</div>
+
+		{{ Form::close() }}
 	</div>	
 @stop

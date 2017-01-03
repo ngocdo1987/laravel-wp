@@ -29,41 +29,12 @@ class Category extends Model
 		return $rules;
 	}
 
-	/*
-	public static function recursive($parent_id = 0, $level = 0)
+	public static function recursive($parent_id = 0, $prefix = '', $trees = null)
 	{
-		$tree = '';
-		$prefix = '';
-
-		$categories = [];
-
-		$childs = Category::where('parent_id', $parent_id)->get();
-
-		if(count($childs) > 0)
+		if(!$trees) 
 		{
-			foreach($childs as $category)
-		    {
-		        $categories[] = [
-		            'item' => [
-		            	'id' => $category->id,
-		            	'category_id' => $category->category_id,
-		            	'name' => $category->category_name
-		            ],
-		            'children' => Category::recursive($category->id)
-		        ];
-		    }
-		}
-
-	    return $categories;
-	}
-	*/
-
-	public static function recursive($parent_id = 0, $prefix = '', $tree = [])
-	{
-		if($parent_id == 0) 
-		{
-			$tree = [];
-		}
+			$trees = [];
+		}	
 
 		$childs = Category::where('parent_id', $parent_id)->get();
 		
@@ -72,18 +43,17 @@ class Category extends Model
 			foreach($childs as $child)
 			{
 				//$tree .= '<option value="'.$child->id.'">'.$child->category_name.'</option>';
-				$tree[] = [
+				$trees[] = [
 					'id' => $child->id,
-					'name' => $prefix.$child->category_name
+					'name' => $prefix.$child->category_name,
+					'parent_id' => $child->parent_id
 				];
 
-				//$prefix .= '---';
-
-				Category::recursive($child->id, $prefix, $tree);
+				$trees = Category::recursive($child->id, $prefix.'---', $trees);
 			}
 		}
 
-		return $tree;
+		return $trees;
 	}
 
 	public function posts()

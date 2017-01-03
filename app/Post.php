@@ -10,14 +10,24 @@ class Post extends Model
 	protected $guarded = ['id'];
 	protected $fillable = ['post_title', 'post_slug', 'post_image', 'post_content', 'post_status', 'post_mt', 'post_md', 'post_mk'];
 
-	public static $rules = [
-		'post_title' => 'required|min:3',
-		'post_slug' => 'required|min:3'
-	];
-
 	public static $filters = [
 
 	];
+
+	public function rules(Request $request)
+	{
+		$rules = [
+			'post_title' => 'required|min:3',
+			'post_slug' => 'required|min:3|unique:posts,post_slug'
+		];
+
+		if(in_array($request->method(), ['PUT', 'PATCH']))
+		{
+			$rules['post_slug'] = $rules['post_slug'].','.$request->segment(3);
+		}
+
+		return $rules;
+	}
 
 	public function categories()
 	{

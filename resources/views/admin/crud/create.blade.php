@@ -33,6 +33,11 @@
 										case 'tinymce':
 										
 											break;
+										case 'summernote':
+											?>
+											<textarea class="form-control summernote" name="{{ $k }}">{{ Request::old($k) }}</textarea>
+											<?php
+											break;	
 										case 'select':
 											?>
 											<select class="form-control select2" name="{{ $k }}">

@@ -25,6 +25,17 @@
 		});
 	</script>
 
+	<!-- Summernote -->
+	<link href="{{ asset('/js/summernote/summernote.css') }}" rel="stylesheet">
+	<script src="{{ asset('/js/summernote/summernote.js') }}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.summernote').summernote({
+				height: 300
+			});
+		});
+	</script>
+
 	<!-- Datetime picker -->
 	<link href="{{ asset('/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css') }}" rel="stylesheet">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>

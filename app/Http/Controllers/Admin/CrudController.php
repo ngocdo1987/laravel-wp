@@ -91,7 +91,20 @@ class CrudController extends Controller
 
 		if($validation->passes())
 		{
-			$model->create($input);
+			$config = $this->config;
+
+			$crud = $model->create($input);
+			
+			// Save n-n
+			if(isset($config->relation->nn) && count($config->relation->nn) > 0)
+			{
+				foreach($config->relation->nn as $singular_model => $v)
+				{
+					$func_name = $v->func;
+					$crud->$func_name()->sync($input[$singular_model]);
+				}
+			}
+			
 
 			return redirect()->route($this->singular.'.index')
 	    					->with('message', 'Create '.$this->singular.' successfully!');
@@ -182,7 +195,20 @@ class CrudController extends Controller
 
 		if($validation->passes())
 		{
-			$model->find($id)->update($input);
+			$config = $this->config;
+
+			$crud = $model->find($id);
+			$crud->update($input);
+
+			// Save n-n
+			if(isset($config->relation->nn) && count($config->relation->nn) > 0)
+			{
+				foreach($config->relation->nn as $singular_model => $v)
+				{
+					$func_name = $v->func;
+					$crud->$func_name()->sync($input[$singular_model]);
+				}
+			}
 
 			return redirect()->route($this->singular.'.index')
 	    					->with('message', 'Edit '.$this->singular.' successfully!');

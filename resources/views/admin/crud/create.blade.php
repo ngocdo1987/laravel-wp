@@ -143,7 +143,7 @@
 							$target_label = $v->target_label;
 							$checked = (null !== Request::old($singular_model) && in_array($sm->id, Request::old($singular_model))) ? ' checked="checked"' : '';
 						@endphp
-						<input type="checkbox" name="{{ $k }}[]" value="{{ $sm->id }}"{{ $checked }} /> {{ $sm->$target_label }} <br/>
+						<input type="checkbox" name="{{ $singular_model }}[]" value="{{ $sm->id }}"{{ $checked }} /> {{ $sm->$target_label }} <br/>
 					@endforeach
 					<hr/>
 				@endforeach

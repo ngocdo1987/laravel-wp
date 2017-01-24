@@ -181,6 +181,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
 
         Nwidart\Modules\LaravelModulesServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*

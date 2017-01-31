@@ -10,21 +10,15 @@ use App\Http\Controllers\Controller;
 
 class CrudController extends Controller
 {
-	protected $singular = '';
-	protected $plural = '';
-	protected $config = [];
+	protected $singular;
+	protected $plural;
+	protected $config;
 
 	public function __construct()
 	{
-		if(file_exists('../config/cms/'.$this->singular.'.json'))
-		{
-			$config = file_get_contents('../config/cms/'.$this->singular.'.json');
-			$config = json_decode($config);
-		}
-		else
-		{
-			$config = null;
-		}
+		$cfg_file = '../config/cms/'.$this->singular.'.json';
+		$config = file_exists($cfg_file) ? json_decode(file_get_contents($cfg_file)) : null;
+
 		$this->config = $config;
 	}
 

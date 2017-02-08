@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
+	<p>
+		<a href="{{ url('admin/'.$singular.'/create') }}" class="btn btn-primary">ADD NEW</a>
+	</p>
+
 	@if(count($cruds) > 0 && !empty($config))
 		<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
 	        <thead>
@@ -33,6 +37,10 @@
 	            @endforeach
 	        </tbody>
 	    </table>
+
+	    <center>
+	    	{{ $cruds->links() }}
+	    </center> 
     @else
     	<center>
     		<font color="red">
@@ -41,5 +49,4 @@
     	</center>
     @endif
 
-    <a href="{{ url('admin/'.$singular.'/create') }}" class="btn btn-primary">ADD NEW</a>
 @stop

@@ -182,6 +182,8 @@ return [
 
         Nwidart\Modules\LaravelModulesServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -235,6 +237,7 @@ return [
 
         'Module' => Nwidart\Modules\Facades\Module::class,
 
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

@@ -19,7 +19,7 @@ class Post extends Model
 		$rules = [
 			'post_title' => 'required|min:3',
 			'post_slug' => 'required|min:3|unique:posts,post_slug',
-			'post_image' => 'required|mimes:jpg,jpeg,gif,png'
+			//'post_image' => 'required|mimes:jpg,jpeg,gif,png'
 		];
 
 		if(in_array($request->method(), ['PUT', 'PATCH']))

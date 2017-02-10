@@ -1,6 +1,12 @@
 @extends('layouts.admin')
 
 @section('content')
+	
+	@include('debug/crud/index', [
+		'config' => $config,
+		'cruds' => $cruds
+	])
+
 	<p>
 		<a href="{{ url('admin/'.$singular.'/create') }}" class="btn btn-primary">ADD NEW</a>
 	</p>

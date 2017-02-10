@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
+	@include('debug/crud/index', [
+		'config' => $config
+	])
+
 	<div class="row">
 		{{ Form::open(['route' => $singular.'.store', 'files' => 'true']) }}
 

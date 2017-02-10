@@ -94,8 +94,9 @@ class CrudController extends Controller
 			{
 				foreach($config->relation->nn as $singular_model => $v)
 				{
+					$sync = isset($input[$singular_model]) ? $input[$singular_model] : array();
 					$func_name = $v->func;
-					$crud->$func_name()->sync($input[$singular_model]);
+					$crud->$func_name()->sync($sync);
 				}
 			}
 			
@@ -199,8 +200,9 @@ class CrudController extends Controller
 			{
 				foreach($config->relation->nn as $singular_model => $v)
 				{
+					$sync = isset($input[$singular_model]) ? $input[$singular_model] : array();
 					$func_name = $v->func;
-					$crud->$func_name()->sync($input[$singular_model]);
+					$crud->$func_name()->sync($sync);
 				}
 			}
 

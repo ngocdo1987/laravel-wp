@@ -25,6 +25,7 @@ class CrudController extends Controller
 	public function index(Request $request)
 	{
 		$mt = 'List '.$this->plural;
+		//die($mt);
 		$model = '\App\\'.ucfirst($this->singular);
 		$model = new $model;
 		//die($model::rules_lol($request));
